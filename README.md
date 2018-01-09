@@ -1,7 +1,7 @@
 # Password Strength Calculator
 
 Script will check your password and revert strength rank:
- 0 - highly weak password (in list of 500 worst passwords);
+ 0 - highly weak password (in the list of worst passwords);
  10 - strong password;
 
  # Requirements
