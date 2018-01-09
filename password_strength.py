@@ -39,7 +39,7 @@ if __name__ == '__main__':
         bad_password = 0
     check_result = password_checker(password)
     if bad_password is None:
-        print('You password strength score 0.0 out of 10.0')
+        print('Your password strength score 0.0 out of 10.0')
     else:
-        print('You password strength score {} out of 10.0'
+        print('Your password strength score {} out of 10.0'
               .format(round(bad_password+check_result, 0)))
