@@ -1,51 +1,45 @@
 import re
 import os
 import sys
-import urllib.request
+import getpass
 
 
-def get_password_strength(password):
-    if blacklist_check(password) == 0:
-        return 0
-    elif blacklist_check(password) is None:
-        return None
-    else:
-        return blacklist_check(password)+password_checker(password)
+POINT_WEIGHT = 1.6
 
 
-def blacklist_check(password):
+def blacklist_check(password, bad_passwords):
     try:
-        url_address = ('https://raw.githubusercontent.com'
-        '/danielmiessler/SecLists/master/Passwords/500-worst-passwords.txt')
-        raw_file = urllib.request.urlopen(url_address).read().decode('utf-8')
-        blacklist = [line for line in raw_file.split('\n')]
+        with open(bad_passwords, 'r', encoding="utf-8") as file_reader:
+            blacklist = file_reader.read()
         if password in blacklist:
-            return 0
+            return None
         else:
-            return 1.6
-    except urllib.error.URLError:
-        return None
+            return POINT_WEIGHT
+    except FileNotFoundError:
+        return 0
 
 
 def password_checker(password):
-        checks = ['[A-Z]', '[a-z]', '[^a-zA-Z0-9]', '[0-9]']
-        points = 0
-        for check in checks:
-            if bool(re.search(check, password)) is True:
-                points += 1.6
-            else:
-                continue
-        if len(password) > 14:
-            points += 1.6
-        else:
-            pass
-        return points
+    checks = ['[A-Z]', '[a-z]', '[^a-zA-Z0-9]', '[0-9]']
+    MIN_LENGHT = 14
+    points = 0
+    for check in checks:
+        if bool(re.search(check, password)):
+            points += POINT_WEIGHT
+    if len(password) > MIN_LENGHT:
+        points += POINT_WEIGHT
+    return points
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        sys.exit('No password provided')
+    password = getpass.getpass('Please, enter your password: ')
+    try:
+        bad_password = blacklist_check(password, sys.argv[1])
+    except IndexError:
+        bad_password = 0
+    check_result = password_checker(password)
+    if bad_password is None:
+        print('You password strength score 0.0 out of 10.0')
     else:
-        score = get_password_strength(sys.argv[1])
         print('You password strength score {} out of 10.0'
-              .format(round(score, 0)))
+              .format(round(bad_password+check_result, 0)))
