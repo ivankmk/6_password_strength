@@ -22,7 +22,7 @@ def blacklist_check(password, bad_passwords):
 
 
 def check_password_strength(password):
-    checks = ['[A-Z]', '[a-z]', '[^a-zA-Z0-9]', '[0-9]']
+    checks = ['[A-Z]', '[a-z]', '\W', '[0-9]']
     min_lenght = 14
     points = 0
     for check in checks:
