@@ -20,7 +20,7 @@ If your password in the worst password list - you will get 0.
 
   ```bash
 
-  $ python lang_frequency.py <file_with_bad_passwords># possibly requires call of python3 executive instead of just python
+  $ python lang_frequency.py <passwords># possibly requires call of python3 executive instead of just python
   Please, enter your password:
   You password strength score 10.0 out of 10.0
   ```
