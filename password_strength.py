@@ -19,16 +19,18 @@ def check_password_strength(password):
     min_lenght = 14
     default_weight = 1.6
     points = 0
+
+    if blacklist_check(password, blacklist_passwords) is True:
+        return 0
+    else:
+        points += default_weight
+
     for check in checks:
         if bool(re.search(check, password)):
             points += default_weight
     if len(password) > min_lenght:
         points += default_weight
 
-    if blacklist_check(password, blacklist_passwords) is True:
-        return 0
-    else:
-        points += default_weight
     return points
 
 
