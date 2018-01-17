@@ -7,11 +7,8 @@ Script will check your password and revert strength rank:
  # Requirements
 
   - Python 3.5
-  - Packages: getpass
 
 Optional, but desirable - you can check your password based on the file with worst/compromised passwords. You can use your own file or [this one](https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/500-worst-passwords.txt'). Save it into the folder with the script.
-
-Also keep in mind, without check inserted password in the list with words password list, maximum score which you can get is 8.
 
 If your password in the worst password list - you will get 0.
 
